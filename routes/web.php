@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +17,9 @@ use App\Http\Controllers\CurrencyController;
 |
 */
 
-
-
+Route::resource('/products', ProductController::class);
 Route::resource('/currencies', CurrencyController::class);
-
-
+Route::resource('/categories', CategoryController::class);
 
 Route::get('/{any?}', function () {
     return view('layouts.app');

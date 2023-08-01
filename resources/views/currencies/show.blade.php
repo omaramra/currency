@@ -1,5 +1,3 @@
-<!-- resources/views/currencies/show.blade.php -->
-
 @extends('layouts.app')
 
 @section('body')

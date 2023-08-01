@@ -11,7 +11,13 @@
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('currencies.index') }}">currencies</a>
+                    <a class="nav-link" href="{{ route('currencies.index') }}">Currencies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                 </li>
             </ul>
         </div>

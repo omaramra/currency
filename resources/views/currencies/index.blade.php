@@ -36,7 +36,7 @@
                         <td class="align-middle">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('currencies.show', $rs->id) }}" type="button"
-                                    class="btn btn-secondary">Detail</a>
+                                    class="btn btn-primary">Detail</a>
                                 <a href="{{ route('currencies.edit', $rs->id) }}" type="button"
                                     class="btn btn-warning">Edit</a>
                                 <form action="{{ route('currencies.destroy', $rs->id) }}" method="POST" type="button"

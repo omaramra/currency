@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\ValidationException;
-
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
@@ -16,13 +14,7 @@ class CurrencyController extends Controller
     {
         $currencies = Currency::all();
 
-        $hasMultipleVirtualCurrencies = $currencies->where('is_virtual', true)->count() > 1;
-
-        if ($hasMultipleVirtualCurrencies) {
-            Currency::where('is_virtual', true)->update(['is_virtual' => false]);
-        }
-
-        return view('currencies.index', compact('currencies', 'hasMultipleVirtualCurrencies'));
+        return view('currencies.index', compact('currencies'));
     }
 
 
@@ -39,6 +31,7 @@ class CurrencyController extends Controller
      */
     public function store(Request $request, Currency $currency)
     {
+
         $validatedData = $request->validate([
             'name' => 'required',
             'symbol' => 'required',
@@ -50,10 +43,8 @@ class CurrencyController extends Controller
 
         if ($request->is_virtual) {
 
-            Currency::where('is_virtual', true)->where('id', '!=', $currency->id)->update(['is_virtual' => false]);
+            Currency::where('is_virtual', true)->update(['is_virtual' => false]);
         }
-
-        $currency->update($request->only(['name', 'symbol', 'decimal_digits', 'is_virtual', 'is_status']));
 
         Currency::create($validatedData);
 
