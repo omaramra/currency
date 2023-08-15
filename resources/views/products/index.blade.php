@@ -44,9 +44,11 @@
                             <td class="align-middle">{{ $product->barcode }}</td>
                             <td class="align-middle">{{ $product->category->name }}</td>
                             <td class="align-middle">{{ $product->description }}</td>
-                            <td class="align-middle">{{ $product->keywords }}</td>
-                            <td class="align-middle">{{ $product->active ? 'activated' : 'inactive' }}</td>
-                            <td class="align-middle">{{ $product->price }} </td>
+                            <td class="align-middle">{{ str_replace(' ', '', $product->keywords) }}</td>
+                            <td class="align-middle {{ $product->active ? 'text-success' : 'text-danger' }}">
+                                {{ $product->active ? 'activated' : 'inactive' }}</td>
+                            <td class="align-middle"><span
+                                    class="currency-symbol">{{ $product->currency->symbol }}{{ $product->price }}</td>
                             <td class="align-middle">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <a href="{{ route('products.edit', $product->id) }}" type="button"

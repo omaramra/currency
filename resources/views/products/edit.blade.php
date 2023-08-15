@@ -56,7 +56,6 @@
                     <div>No Image</div>
                 @endif
             </div>
-
             <div class="form-group">
                 <label for="new_image">New Image</label>
                 <input type="file" class="form-control-file" id="new_image" name="new_image">
@@ -88,10 +87,10 @@
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                <input type="number" class="form-control" id="price" name="price" step="0.01"
+                    value="{{ $product->price }}" required>
                 <span class="error" style="color: red; display: none;">Allowed price exceeded</span>
             </div>
-
             <button type="submit" class="btn btn-primary">Update Product</button>
             <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancel</a>
         </form>

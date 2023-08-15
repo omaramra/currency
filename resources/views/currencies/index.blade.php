@@ -9,10 +9,15 @@
     @if (Session::has('success'))
         <div class="alert alert-success" role="alert">
             {{ Session::get('success') }}
+
         </div>
     @endif
     <table class="table table-hover">
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         <thead class="table-primary">
+
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -32,7 +37,8 @@
                         <td class="align-middle">{{ $rs->symbol }}</td>
                         <td class="align-middle">{{ $rs->decimal_digits }}</td>
                         <td class="align-middle">{{ $rs->is_virtual ? 'Yes' : 'No' }}</td>
-                        <td class="align-middle">{{ $rs->is_status ? 'activated' : 'inactive' }}</td>
+                        <td class="align-middle {{ $rs->is_status ? 'text-success' : 'text-danger' }}">
+                            {{ $rs->is_status ? 'activated' : 'inactive' }}</td>
                         <td class="align-middle">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('currencies.show', $rs->id) }}" type="button"
@@ -44,6 +50,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger m-0">Delete</button>
+
                                 </form>
                             </div>
                         </td>

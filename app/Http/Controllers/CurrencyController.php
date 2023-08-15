@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,6 @@ class CurrencyController extends Controller
     public function index()
     {
         $currencies = Currency::all();
-
         return view('currencies.index', compact('currencies'));
     }
 
@@ -100,6 +101,10 @@ class CurrencyController extends Controller
      */
     public function destroy(Currency $currency)
     {
+        if (Product::where('currency_id', $currency->id)->exists()) {
+            return redirect()->route('currencies.index')->with('error', 'Currency is referenced in products and cannot be deleted');
+        }
+
         $currency->delete();
 
         return redirect()->route('currencies.index')->with('success', 'Currency deleted successfully.');

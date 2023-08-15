@@ -38,6 +38,7 @@ class ProductController extends Controller
     {
 
         $validatedData = $request->validate([
+
             'name' => 'required',
             'barcode' => 'required',
             'category_id' => 'required|exists:categories,id',
@@ -84,9 +85,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
         $categories = Category::all();
         $currencies = Currency::all();
-        return view('products.edit', compact('categories', 'currencies'));
+
+        return view('products.edit', compact('product', 'categories', 'currencies'));
     }
 
     /**
@@ -94,6 +97,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+
+
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -108,7 +113,8 @@ class ProductController extends Controller
         ]);
 
 
-        $product->update($request->only(['name', 'barcode', 'category_id', 'description', 'image', 'keywords', 'active', 'currency_id']));
+
+        $product->update($request->only(['name', 'barcode', 'category_id', 'description', 'image', 'keywords', 'active', 'currency_id', 'price']));
 
 
         return redirect()->route('products.index')
