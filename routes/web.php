@@ -20,9 +20,10 @@ use App\Http\Controllers\CustomerController;
 Route::resource('/products', ProductController::class);
 Route::resource('/currencies', CurrencyController::class);
 Route::resource('/categories', CategoryController::class);
+
+Route::put('/customers/changeStatus/{customer}', [CustomerController::class, 'toggleStatus'])->name('customers.toggleStatus');
 Route::resource('/customers', CustomerController::class);
 
-Route::put('/customers/{customer}', [CustomerController::class, 'toggleStatus'])->name('customers.toggleStatus');
 
 
 Route::get('/{any?}', function () {

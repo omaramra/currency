@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class CustomerController extends Controller
 {
@@ -83,20 +84,36 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        $request->validate([
-
+        $validatedData = $request->validate([
             'name' => 'required',
             'mobile_number' => 'required|unique:customers,mobile_number,' . $customer->id,
             'email' => 'required|email|unique:customers,email,' . $customer->id,
+            'phone_number' => 'required',
             'image' => 'nullable|image',
             'active' => 'required|boolean',
         ]);
 
+        if ($request->hasFile('image')) {
+            if ($customer->image) {
+                Storage::delete($customer->image);
+            }
 
-        $customer->update($request->all());
+            $imagePath = $request->file('image')->store('customer_images', 'public');
+        }
+
+        $customer->name = $validatedData["name"];
+        $customer->mobile_number = $validatedData["mobile_number"];
+        $customer->email = $validatedData["email"];
+        $customer->image = $imagePath;
+        $customer->phone_number = $validatedData["phone_number"];
+        $customer->active = $validatedData["active"];
+
+        $customer->save();
 
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
     }
+
+
 
     public function toggleStatus(Customer $customer)
     {
@@ -104,6 +121,8 @@ class CustomerController extends Controller
 
         return redirect()->back()->with('success', 'Customer status toggled successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

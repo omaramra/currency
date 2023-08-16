@@ -45,20 +45,18 @@
 
             <div class="form-group">
                 <label for="image">Image</label>
+                <input type="file" class="form-control-file" id="image" name="image">
                 @if ($customer->image)
-                    <div>
-                        <img src="{{ asset('/storage/' . $customer->image) }}" alt="Customer Image" class="img-thumbnail"
-                            style="max-width: 100px;">
-                    </div>
+                    <img src="{{ asset('/storage/' . $customer->image) }}" alt="Customer Image" class="img-thumbnail"
+                        style="max-width: 100px;">
                 @else
-                    <div>No Image</div>
+                    <p>No Image</p>
                 @endif
             </div>
-
             <div class="form-group"> <label for="active">Active</label> <select class="form-control" id="active"
                     name="active">
-                    <option value="0" {{ $customer->active == 'Deactivate' ? 'selected' : '' }}>Deactivate</option>
-                    <option value="1" {{ !$customer->active == 'activated' ? 'selected' : '' }}>Activate</option>
+                    <option value="0" {{ $customer->active == 0 ? 'selected' : '' }}>Deactivate</option>
+                    <option value="1" {{ $customer->active == 1 ? 'selected' : '' }}>Activate</option>
                 </select> </div>
 
             <br>
