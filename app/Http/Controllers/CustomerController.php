@@ -98,13 +98,13 @@ class CustomerController extends Controller
                 Storage::delete($customer->image);
             }
 
-            $imagePath = $request->file('image')->store('customer_images', 'public');
+            $imagePath = $request->file('image')->store('images', 'public');
+            $customer->image = $imagePath;
         }
 
         $customer->name = $validatedData["name"];
         $customer->mobile_number = $validatedData["mobile_number"];
         $customer->email = $validatedData["email"];
-        $customer->image = $imagePath;
         $customer->phone_number = $validatedData["phone_number"];
         $customer->active = $validatedData["active"];
 
@@ -129,6 +129,10 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        if ($customer->image) {
+            Storage::delete($customer->image);
+        }
+
         $customer->delete();
 
         return redirect()->route('customers.index')->with('success', 'Customer deleted successfully.');

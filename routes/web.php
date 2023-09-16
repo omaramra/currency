@@ -5,6 +5,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\CustomerController;
 Route::resource('/products', ProductController::class);
 Route::resource('/currencies', CurrencyController::class);
 Route::resource('/categories', CategoryController::class);
+Route::resource('/purchase-orders', PurchaseOrderController::class);
+Route::resource('/purchase_order_items', PurchaseOrderController::class);
+
 
 Route::put('/customers/changeStatus/{customer}', [CustomerController::class, 'toggleStatus'])->name('customers.toggleStatus');
 Route::resource('/customers', CustomerController::class);

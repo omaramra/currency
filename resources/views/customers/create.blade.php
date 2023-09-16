@@ -50,8 +50,8 @@
             <div class="form-group">
                 <label for="active">Active</label>
                 <select name="active" id="active" class="form-control" required>
-                    <option value="0">Inactive</option>
                     <option value="1">Activated</option>
+                    <option value="0">Inactive</option>
                 </select>
             </div>
 
